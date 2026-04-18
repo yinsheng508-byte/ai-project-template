@@ -8,9 +8,9 @@ Codex 分为两个角色：
 ## 默认输入文件
 - README.md
 - AGENTS.md
-- docs/01-requirements.md
-- docs/02-task-plan.md
-- docs/04-acceptance.md
+- docs/current/requirements.md
+- docs/current/tasks.md
+- docs/current/acceptance.md
 
 ## Planner 职责
 - 读取需求文档
@@ -27,18 +27,19 @@ Codex 分为两个角色：
 - 提前识别技术风险和可行性问题
 
 前提：
-- Codex 参与需求分析时，仍应以 `docs/01-requirements.md` 为最终落地点
+- Codex 参与需求分析时，仍应以 `docs/current/requirements.md` 为最终落地点
 - 需求分析结论应回流给 Claude 或写入需求文档，不直接替代最终验收职责
 
 ## Builder 职责
 - 只按任务卡执行
 - 仅修改授权范围内文件
+- 运行相关代码和文档统一落到 `code/`
 - 输出修改说明、验证结果、风险说明
 
 ## Builder 失败处理
 如果同一问题连续失败两次：
 - 不再盲目重试
-- 在 `docs/03-review-and-escalation.md` 记录问题
+- 在 `docs/current/review.md` 记录问题
 - 升级给 Claude 或 Gemini
 
 ## 不允许的行为
@@ -48,4 +49,5 @@ Codex 分为两个角色：
 
 ## 额外说明
 - Codex 默认仍以规划和实现为主
+- 过程记录写回 `docs/current/`
 - 如果用户明确指定 Codex 协助需求分析，可以执行，但应保持结果结构化、可落地、可写入文档

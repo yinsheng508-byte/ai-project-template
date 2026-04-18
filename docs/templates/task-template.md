@@ -1,4 +1,4 @@
-# 05-task-template
+# task-template
 
 ```md
 # 任务名称

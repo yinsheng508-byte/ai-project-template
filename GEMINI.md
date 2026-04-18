@@ -19,16 +19,16 @@
 前提：
 - Gemini 默认不是主施工 agent
 - 如需直接承担其他任务，必须明确指定并遵守当前文档边界
-- Gemini 参与需求分析时，结果应回流到 `docs/01-requirements.md` 或交由 Claude 收口
+- Gemini 参与需求分析时，结果应回流到 `docs/current/requirements.md` 或交由 Claude 收口
 
 ## 默认输入文件
 - README.md
 - AGENTS.md
 - docs/INDEX.md
-- docs/01-requirements.md
-- docs/02-task-plan.md
-- docs/03-review-and-escalation.md
-- docs/04-acceptance.md
+- docs/current/requirements.md
+- docs/current/tasks.md
+- docs/current/review.md
+- docs/current/acceptance.md
 
 ## 任务流转中的默认职责
 ### 分析模式
@@ -47,11 +47,12 @@
 Gemini 开始工作时：
 1. 先读 `README.md`
 2. 再读 `docs/INDEX.md`
-3. 根据当前阶段按需读取文档
+3. 根据当前阶段按需读取 `docs/current/` 下相关文档
 4. 不要默认读取全部文件
 
 ## 原则
 - Gemini 默认不是主施工 agent
 - 优先承担 review 和 analysis
+- review 关注 `code/` 中的交付内容是否满足目标
 - 分析完成后，结论应回流给 Codex 或 Claude
 - 如果用户明确指定 Gemini 协助其他合理任务，可以执行，但应优先保持分析与审查优势

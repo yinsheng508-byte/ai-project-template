@@ -1,4 +1,4 @@
-# 06-review-checklist
+# review-checklist
 
 ## review 的目标
 review 不是重写代码，而是检查：

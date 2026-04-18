@@ -1,6 +1,6 @@
-# 00-workflow
+# workflow
 
-这是当前项目的最小工作流说明，所有 agent 和使用者都应先阅读。
+这是项目的最小工作流说明，所有 agent 和使用者都应先阅读。
 
 ## 标准步骤
 
@@ -10,7 +10,7 @@
 
 要做什么：
 - 明确项目背景、目标、非目标、核心功能、约束
-- 把结果写入 `docs/01-requirements.md`
+- 把结果写入 `docs/current/requirements.md`
 
 完成标准：
 - 需求文档已完整
@@ -27,7 +27,7 @@
 - 标记并行 / 串行关系
 - 规划 branch / worktree
 - 明确每个任务的修改范围和测试要求
-- 把结果写入 `docs/02-task-plan.md`
+- 把结果写入 `docs/current/tasks.md`
 
 完成标准：
 - 每个任务有明确目标、边界、branch、worktree
@@ -42,6 +42,7 @@
 要做什么：
 - 每个任务在独立 worktree 中执行
 - 仅修改授权范围内文件
+- 运行相关代码和文档统一落到 `code/`
 - 输出改动说明、验证结果、风险说明
 
 完成标准：
@@ -60,7 +61,7 @@
 - 检查是否超范围修改
 - 检查风险、遗漏、边界问题
 - 如 builder 连续失败两次，记录 escalation
-- 把结果写入 `docs/03-review-and-escalation.md`
+- 把结果写入 `docs/current/review.md`
 
 完成标准：
 - review 已明确通过 / 待修改 / 风险较高
@@ -72,13 +73,20 @@
 负责人：Claude（默认）
 
 要做什么：
-- 对照 requirements / task plan / review 结果做最终验收
+- 对照 requirements / tasks / review 结果做最终验收
 - 检查目标是否完成，风险是否收口
-- 把结果写入 `docs/04-acceptance.md`
+- 把结果写入 `docs/current/acceptance.md`
 
 完成标准：
 - 最终验收结论明确
 - 明确是否允许合并 main
+
+---
+
+### 第 6 步：归档
+当前轮次完成后：
+- 将 `docs/current/` 中的文档整体归档到 `docs/archive/<日期-名称>/`
+- 再开始下一轮
 
 ---
 
@@ -95,3 +103,9 @@
 1. 不要直接让 agent 修改整个项目
 2. 不要把多个目标塞进同一任务
 3. 不要因为 agent 说“完成了”就直接相信，必须看验证和 review
+
+---
+
+## 两条硬规则
+1. 整个项目运行所需的代码和文档，全部放在 `code/`
+2. `docs/` 只用于记录协作过程文档

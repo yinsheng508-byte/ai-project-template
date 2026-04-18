@@ -1,4 +1,4 @@
-# 07-acceptance-checklist
+# acceptance-checklist
 
 ## 最终只需要看这几件事
 

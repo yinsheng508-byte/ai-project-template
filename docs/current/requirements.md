@@ -1,4 +1,9 @@
-# 01-requirements
+# requirements
+
+## 产出落点
+- 运行代码与运行文档：放入 `code/`
+- 协作过程文档：放入 `docs/current/`
+
 
 ## 项目背景
 [这个项目要解决什么问题]
