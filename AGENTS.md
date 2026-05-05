@@ -21,22 +21,20 @@
 1. 基线准备
 2. 需求澄清
 3. 任务编排
-4. 工作区派发
-5. 执行开发
-6. Review / Escalation
-7. 最终验收
-8. 归档
-9. 人工确认与合并
+4. 执行开发
+5. Review / Escalation
+6. 最终验收
+7. 归档
+8. 人工确认与合并
 
 默认责任人：
-- 基线准备 → 用户 / 主控 agent
+- 基线准备 → 用户
 - 需求澄清 → Claude（默认）
 - 任务编排 → Codex（默认）
-- 工作区派发 → 主控 agent
 - 执行开发 → Codex / 指定 agent
 - Review / Escalation → Gemini / Claude
 - 最终验收 → Claude
-- 人工确认与合并 → 用户 / 主控 agent
+- 人工确认与合并 → 用户
 
 在被明确指定时，Claude、Codex、Gemini 都可以协助其他合理任务，但必须遵守当前边界与流程。
 
