@@ -14,8 +14,9 @@ Codex 分为两个角色：
 - docs/current/acceptance.md
 
 ## Planner 职责
-- 读取需求文档
-- 拆分任务
+- 读取需求文档和 `docs/context.md`
+- 按垂直 slice 拆任务（每个 slice = 一条端到端用户路径，而非单一技术层）
+- 为每个 slice 填写可演示路径，并标注 AFK / HITL
 - 标记并行 / 串行关系
 - 定义 branch / worktree 建议
 - 写测试和验收建议

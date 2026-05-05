@@ -30,7 +30,10 @@
 
 ## 任务流转中的默认职责
 ### 阶段 1：需求层
-负责补全 `docs/current/requirements.md`
+1. 读 `docs/context.md`，了解已有语言和历史决策
+2. Grill 用户：追问关键决策（一次一问，给推荐答案；能自查代码的不问）
+3. 基于追问结果填写 `docs/current/requirements.md`
+4. 更新 `docs/context.md`（本轮确认的新术语或决策）
 
 ### 阶段 4：复杂问题升级
 当 Codex 无法在两次尝试内解决问题时，Claude 接管根因分析、重规划、复杂 bug 处理。
@@ -40,7 +43,8 @@ Claude 对照 requirements / tasks / review 结果做最终验收。
 
 ## 索引文件与按需读取
 Claude 开始工作时：
-1. 先读 `README.md`
+0. 先读 `docs/context.md`（了解项目语言和历史决策）
+1. 再读 `README.md`
 2. 再读 `docs/INDEX.md`
 3. 根据当前阶段按需读取 `docs/current/` 下相关文档
 4. 不要默认读取全部文件

@@ -46,7 +46,8 @@
 
 ## 索引文件与按需读取
 Gemini 开始工作时：
-1. 先读 `README.md`
+0. 先读 `docs/context.md`（了解项目语言和历史决策）
+1. 再读 `README.md`
 2. 再读 `docs/INDEX.md`
 3. 根据当前阶段按需读取 `docs/current/` 下相关文档
 4. 不要默认读取全部文件

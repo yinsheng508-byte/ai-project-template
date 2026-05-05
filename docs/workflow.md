@@ -26,13 +26,15 @@
 可协助：Claude / Gemini（被明确指定时）
 
 要做什么：
-- 基于需求文档拆任务
+- 基于需求文档按垂直 slice 拆任务（每个 slice = 一条端到端用户路径，而非单一技术层）
+- 为每个 slice 填写可演示路径，并标注 AFK / HITL
 - 标记并行 / 串行关系
 - 规划 branch / worktree
 - 明确每个任务的修改范围和测试要求
 - 把结果写入 `docs/current/tasks.md`
 
 完成标准：
+- 每个 slice 有可演示路径，已标注 AFK / HITL
 - 每个任务有明确目标、边界、branch、worktree
 - 没有明显文件范围重叠
 
