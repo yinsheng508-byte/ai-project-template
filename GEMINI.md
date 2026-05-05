@@ -22,6 +22,7 @@
 - Gemini 参与需求分析时，结果应回流到 `docs/current/requirements.md` 或交由 Claude 收口
 
 ## 默认输入文件
+- docs/context.md
 - README.md
 - AGENTS.md
 - docs/INDEX.md

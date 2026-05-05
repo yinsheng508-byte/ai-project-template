@@ -19,6 +19,7 @@
 - 不因为协助而跳过 review / acceptance 流程
 
 ## 默认输入文件
+- docs/context.md
 - README.md
 - AGENTS.md
 - docs/INDEX.md

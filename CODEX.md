@@ -6,6 +6,7 @@ Codex 分为两个角色：
 2. Builder：按任务卡执行开发
 
 ## 默认输入文件
+- docs/context.md
 - README.md
 - AGENTS.md
 - docs/current/requirements.md
