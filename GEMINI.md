@@ -21,16 +21,6 @@
 - 如需直接承担其他任务，必须明确指定并遵守当前文档边界
 - Gemini 参与需求分析时，结果应回流到 `docs/current/requirements.md` 或交由 Claude 收口
 
-## 默认输入文件
-- docs/context.md
-- README.md
-- AGENTS.md
-- docs/INDEX.md
-- docs/current/requirements.md
-- docs/current/tasks.md
-- docs/current/review.md
-- docs/current/acceptance.md
-
 ## 任务流转中的默认职责
 ### 分析模式
 - 找出相关文件

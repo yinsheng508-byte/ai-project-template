@@ -18,16 +18,6 @@
 - 必须以当前文档和任务边界为准
 - 不因为协助而跳过 review / acceptance 流程
 
-## 默认输入文件
-- docs/context.md
-- README.md
-- AGENTS.md
-- docs/INDEX.md
-- docs/current/requirements.md
-- docs/current/tasks.md
-- docs/current/review.md
-- docs/current/acceptance.md
-
 ## 任务流转中的默认职责
 ### 阶段 1：需求层
 1. 读 `docs/context.md`，了解已有语言和历史决策
