@@ -52,9 +52,3 @@ Gemini 开始工作时：
 3. 根据当前阶段按需读取 `docs/current/` 下相关文档
 4. 不要默认读取全部文件
 
-## 原则
-- Gemini 默认不是主施工 agent
-- 优先承担 review 和 analysis
-- review 关注 `code/` 中的交付内容是否满足目标
-- 分析完成后，结论应回流给 Codex 或 Claude
-- 如果用户明确指定 Gemini 协助其他合理任务，可以执行，但应优先保持分析与审查优势
