@@ -29,10 +29,17 @@
 ## 禁止修改范围
 -
 
+## Git 信息
+- 所属 feature 分支：feat/<slug>
+- 任务分支：feat/<slug>/T<n>
+- **任务状态**：未开始 / 进行中 / 待review / 已完成
+- **合并状态**：待合并 / 已合并
+
 ## 产物落点
-运行相关内容放 `code/`，过程记录放 `docs/current/`
+运行相关内容放 `code/`，过程记录放 `docs/current/<slug>/`
 
 ## 验收标准
 - [ ] 可演示路径跑通
 - [ ] lint / test / build 通过
+- [ ] tasks.md 中任务状态已更新
 ```
