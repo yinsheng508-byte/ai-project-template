@@ -63,12 +63,13 @@ Claude 验收通过 → merge feat/<slug> → main → 自动归档
 ├── AGENTS.md               # 全局协作原则（所有 agent 必读）
 ├── CODEX.md                # Codex 职责与操作规范
 ├── GEMINI.md               # Gemini 职责与操作规范
-├── OPS.md                  # 可选：仅线上项目启用
+├── docs/OPS.md             # 可选：仅线上项目启用
 ├── code/                   # 项目运行所需的全部代码和文档
 └── docs/
     ├── context.md          # 永久记忆：术语 + 重大决策
     ├── INDEX.md            # 导航入口
     ├── workflow.md         # 标准工作流
+    ├── OPS.md              # 可选：仅线上项目启用
     ├── current/
     │   ├── _dashboard.md           # 全局工作流看板（所有 agent 必读）
     │   └── <slug>/                 # 每个需求一个独立目录

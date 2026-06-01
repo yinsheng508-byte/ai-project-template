@@ -104,7 +104,7 @@ git merge feat/<slug>    # Claude 执行，合并到 main
 3. `_dashboard.md` 移除该 slug 行
 4. 流程结束
 
-**线上项目**（启用 OPS.md 时）：
+**线上项目**（启用 `docs/OPS.md` 时）：
 1. 执行 merge → main，更新 `_dashboard.md` 状态→Deploying
 2. OPS 准备部署，HITL 等待用户确认
 3. 用户确认 → OPS 执行部署 → 健康检查
