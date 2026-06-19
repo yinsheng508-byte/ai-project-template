@@ -1,40 +1,43 @@
 # INDEX
 
-项目索引文件。先看这里，再决定下一步读什么。
+项目导航入口。先看这里，再决定下一步读什么。
 
-## 默认阅读顺序
-0. `docs/context.md`（了解项目语言和历史决策）
-1. `README.md`
-2. `docs/INDEX.md`（本文件）
-3. `docs/current/_dashboard.md`（了解当前所有活跃工作流）
-4. `docs/current/<slug>/`（确认目标 slug 后，按需读取对应目录）
+## 开工必读顺序
 
-## 导航入口
+1. `AGENTS.md`（所有规则的唯一来源）
+2. `docs/current/WORKING_CONTEXT.md`（当前开工地图）
+3. `docs/architecture/map.md`（系统模块地图）
+4. 按任务类型追加读 architecture/ 下对应文件
 
-### 当前活跃工作流
-→ `docs/current/_dashboard.md`
+## 导航
 
-### 需求模板（按类型选择）
-- 功能型：`docs/templates/requirements/feature.md`
-- Bug 修复：`docs/templates/requirements/bugfix.md`
-- 重构：`docs/templates/requirements/refactor.md`
-- 运维部署（可选）：`docs/templates/requirements/ops.md`
+### 当前工作状态
+- 当前开工地图 → `docs/current/WORKING_CONTEXT.md`
+- Quick Fix 记录 → `docs/current/session-log.md`
+- Standard 任务看板 → `docs/current/_dashboard.md`
+- Standard 任务列表 → `docs/current/tasks.md`
 
-### 过程文档模板
-- `docs/templates/tasks.md`
-- `docs/templates/review.md`
-- `docs/templates/acceptance.md`
-- `docs/templates/task-template.md`
+### AI 长期记忆（最重要）
+- 系统模块地图 → `docs/architecture/map.md`
+- 组件注册表 → `docs/architecture/components.md`
+- 业务闸口地图 → `docs/architecture/gates.md`
+- 已实现能力清单 → `docs/architecture/capabilities.md`
+- 禁区记录 → `docs/architecture/do-not-break.md`
 
-### 检查单
-- `docs/templates/review-checklist.md`
-- `docs/templates/acceptance-checklist.md`
+### 背景知识
+- 术语 / 长期决策 / 计费语义 → `docs/context.md`
 
-### 历史轮次
+### 工作流说明
+- Quick Fix → `docs/workflows/quick-fix.md`
+- Standard → `docs/workflows/standard.md`
+
+### 文档模板
+- 需求模板（feature）→ `docs/templates/requirements/feature.md`
+- 需求模板（bugfix）→ `docs/templates/requirements/bugfix.md`
+- 需求模板（refactor）→ `docs/templates/requirements/refactor.md`
+- 任务模板 → `docs/templates/tasks.md`
+- Review 模板 → `docs/templates/review.md`
+- 验收模板 → `docs/templates/acceptance.md`
+
+### 历史归档
 → `docs/archive/`
-
-### 工作流规范
-→ `docs/workflow.md`
-
-### 部署规范（可选，仅线上项目）
-→ `docs/OPS.md`

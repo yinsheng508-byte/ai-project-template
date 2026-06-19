@@ -1,158 +1,180 @@
 # AGENTS.md
 
-## 目标
-保持 AI 协作开发过程清晰、可控、可 review、可回滚。
+> 唯一权威入口。所有 agent 开工前必读。所有协作规则以本文件为准。
+> CODEX.md / CLAUDE.md / GEMINI.md 仅描述各自角色的具体操作细节，不重复定义规则。
 
-## 核心协作原则
+## 开工必读顺序
 
-1. 先把项目当前正式文件全部提交到 `main`，再开始并行开发
-2. `main` 是正式基线，不允许在基线未稳定时直接派生大量任务
-3. 目录结构一旦确认，就是正式结构，agent 不得擅自重构或改目录
-4. 整个项目运行所需的代码和文档，全部放在 `code/`
-5. `docs/` 只记录需求、任务、review、验收等过程文档
-6. **文档即状态**：任何决策、代码变更、阶段推进必须立即写回对应文档，文档落后于实际状态等同于任务未完成
-7. 先读 `docs/current/_dashboard.md` 了解全局，再按当前阶段按需读取文档
-8. 修改后必须执行最相关验证
-9. Gemini 在 review 阶段只负责审查，不直接修改代码或文档
-10. 每个任务必须有可演示路径；HITL 任务在执行前需人工确认再交 agent
+**每次开工必读（按顺序）：**
+1. `AGENTS.md`（本文件）
+2. `docs/current/WORKING_CONTEXT.md`（当前开工地图）
+3. `docs/architecture/map.md`（系统模块地图）
 
-## 任务流转
+**动手前追加读（按任务类型）：**
+- 新增组件 / UI 元素 → `docs/architecture/components.md`
+- 新增功能 / 模块 → `docs/architecture/capabilities.md`
+- 修改已有代码 → `docs/architecture/do-not-break.md`
+- 涉及用户流程 / 权限 / 计费 → `docs/architecture/gates.md`
 
-标准流转顺序：
-1. 工作流注册（Claude 在 `_dashboard.md` 登记 slug）
-2. 需求澄清（Claude）
-3. 任务编排（Codex Planner）
-4. 执行开发（Codex Builder）
-5. Review / Escalation（Gemini / Claude）
-6. 最终验收（Claude）
-7. 自动归档（验收通过后立即触发，无需外部指令）
-8. 部署（可选，仅线上项目，用户 HITL 确认后由 OPS 执行）
+**按需读（有背景需求时）：**
+- `docs/context.md`（术语、长期决策、计费语义）
+- `docs/current/tasks.md`（Standard 模式任务列表）
+- `docs/current/<slug>/requirements.md`
 
-默认责任人：
-- 工作流注册 → Claude
-- 需求澄清 → Claude
-- 任务编排 → Codex Planner
-- 执行开发 → Codex Builder
-- Review / Escalation → Gemini / Claude
-- 最终验收 → Claude
-- merge + 归档 → Claude（自动执行）
-- 部署 → OPS（仅线上项目，用户 HITL 确认后）
+## 任务模式声明
 
-在被明确指定时，Claude、Codex、Gemini 都可以协助其他合理任务，但必须遵守当前边界与流程。
+**开工第一步：锁定当前任务模式。** 不声明模式就开始执行是禁止的。
 
-## 索引文件与按需读取
+| 模式 | 说明 |
+|------|------|
+| 只梳理，不修改 | 分析现状、梳理问题、给出结论，不改任何文件 |
+| 深度分析，给方案 | 调研、分析、输出方案建议，不实现 |
+| 写任务卡，不开发 | 拆解任务，输出 tasks.md，等用户确认后再执行 |
+| 直接开发，逐项验收 | 按任务卡串行执行，完成一项验收一项 |
+| 生产变更，必须完整备份 | 涉及生产数据 / 配置 / 部署，必须先备份、有回滚路径 |
+| review，先找问题 | 只读审查，输出问题列表和修改建议 |
+| 复盘，总结经验 | 回顾任务，输出经验总结，更新 do-not-break.md |
+| Quick Fix，直接修复 | 小改动，直接修复，写 session-log |
 
-所有 agent 开始工作前：
-0. 先读 `docs/context.md`（了解项目语言和历史决策）
-1. 再读 `README.md`
-2. 再读 `docs/current/_dashboard.md`（了解当前所有活跃工作流）
-3. 确认目标 slug，进入 `docs/current/<slug>/` 按需读取
-4. 不要默认一次性读完整个仓库
+## 两档工作流
+
+### Quick Fix（快速通道）
+
+**适用：** 小 bug、样式调整、文案修改、单字段、小范围逻辑修复
+
+**判断标准（满足所有条件才走 Quick Fix）：**
+- 影响范围限于 1-3 个文件
+- 不涉及支付、积分、权限、登录流程
+- 不需要 Grill 需求澄清
+- 改动可在 30 分钟内完成
+
+**必须做的四件事：**
+1. 读 AGENTS.md + WORKING_CONTEXT.md + 当前相关源码
+2. 修改前说明影响范围（哪些文件、哪些用户路径）
+3. 修改后跑最小验证
+4. 写一条到 `docs/current/session-log.md`，原子提交 main
+
+**不需要：** slug / 分支 / requirements / review / acceptance
+
+**session-log 记录格式：**
+```
+## YYYY-MM-DD
+- 修复：[一句话描述]
+- 修改文件：[文件路径]
+- 验证：[做了什么验证，结果如何]
+- 风险：[无 / 有（描述）]
+```
+
+### Standard（标准流程）
+
+**适用：** 完整功能、跨模块改动、多轮持续迭代的需求
+
+**流程：**
+```
+Claude Grill 需求 → slug 注册 → tasks 拆分 → 执行 → review → acceptance → 归档
+```
+
+**文档：**
+- `docs/current/WORKING_CONTEXT.md`（持续更新当前状态）
+- `docs/current/tasks.md`（任务列表）
+- `docs/current/acceptance.md`（验收标准）
+- `docs/current/<slug>/`（仅多轮持续需求建独立目录，单次需求用公用文件）
+
+详见 `docs/workflows/standard.md`。
+
+## Git 规范
+
+### Main 线工作纪律（默认模式）
+
+在 main 上开发时，必须：
+1. 开工前确认 git 状态干净（无未提交改动）
+2. 每次只处理一个目标
+3. 大改前先 commit 一个稳定基线
+4. 改完跑最小验证再提交
+5. commit message 写业务意图，不写"fix bug" / "update"
+
+### 开分支的触发条件（满足任一才开）
+
+- 改动预计超过 1 天
+- 同时有两个方向并行
+- 涉及支付、扣费、登录、数据迁移、部署
+- 需要独立 review 后才能合并
+- 改动可能推翻现有架构
+- 想保留 main 随时可发布
+
+### 分支命名（Standard 需要分支时）
+- feature 分支：`feat/<slug>`
+- 合并：`feat/<slug>` → `main`，Claude 验收通过后执行
+
+## AI 常见错误（必须避免）
+
+1. **凭记忆开发** — 没读真实代码就动手，在老项目里极危险
+2. **局部通过当整体通过** — 单测过了 ≠ 功能好了，本地能跑 ≠ 线上没问题
+3. **忽略生产语义** — 失败不扣费、重试不结算、人工操作不伪造为充值
+4. **顺手扩大范围** — 只改 A 结果碰了 B，只改文案结果改了逻辑
+5. **不尊重已有工作区** — 把现有改动一起格式化、覆盖、提交
+6. **只看命令退出码** — exit code 0 ≠ 业务正确，要看响应体、DB、日志、账务
+7. **用文案判断业务状态** — 文案会变，应靠 code / status / type / metadata 判断
+8. **忘记历史数据** — 新逻辑没问题，但旧数据、重试任务、历史 snapshot 可能崩
+9. **任务完成不写回文档** — 下一轮 Codex 重新失忆，等于任务没完成
+10. **生产操作太自信** — 没备份、没回滚路径、没 gate 检查就直接改
 
 ## 文档写回责任矩阵
 
-| 触发动作 | 写入文档 | 负责执行 |
-|---------|---------|---------|
-| 用户确认 Grill 决策 | `<slug>/requirements.md` Grill 记录区 | Claude |
-| 需求文档定稿 | `context.md`（新术语/决策） | Claude |
-| 工作流注册 | `_dashboard.md` 新增行，状态=Requirements | Claude |
-| 任务拆分定稿 + 用户确认 | `<slug>/tasks.md`；`_dashboard.md` 状态→Planning | Codex Planner |
-| feature 分支创建 | `<slug>/tasks.md` 分支字段；`_dashboard.md` 状态→Development | Codex Planner |
-| Builder 开始某任务 | `<slug>/tasks.md` 任务状态=进行中 | Codex Builder |
-| Builder 完成某任务 | `<slug>/tasks.md` 任务状态=待review | Codex Builder |
-| 任务分支合并 feature | `<slug>/tasks.md` 合并状态=已合并 | Codex Builder |
-| Escalation 发生 | `<slug>/review.md` escalation 区（立即写入，不等解决） | 发起 agent |
-| Gemini 完成 review | `<slug>/review.md`（Gemini 口述，Codex 写入） | Codex Builder |
-| Claude 完成验收 | `<slug>/acceptance.md` 验收结论 | Claude |
-| feature 分支合并 main | `_dashboard.md` 状态→Done/Deploying | Claude |
-| OPS 部署完成 | `_dashboard.md` 状态→Done；`<slug>/acceptance.md` 部署区 | OPS |
-| 归档完成 | `_dashboard.md` 移除该行；`context.md` 补录 | Claude / OPS |
+| 情况 | 写回位置 | 负责 |
+|------|---------|------|
+| Quick Fix 完成 | `docs/current/session-log.md` | Codex |
+| 新增 UI 组件 / 弹窗 / 表单 | `docs/architecture/components.md` | Codex |
+| 新增模块 / 功能入口 | `docs/architecture/map.md` | Codex |
+| 非常规实现 / 看起来奇怪但不能改的逻辑 | `docs/architecture/do-not-break.md` | Codex / Claude |
+| 新增业务闸口 | `docs/architecture/gates.md` | Codex |
+| 新增系统能力 | `docs/architecture/capabilities.md` | Codex |
+| 新术语 / 计费规则 / 长期决策 | `docs/context.md` | Claude |
+| Standard 任务推进 | `docs/current/tasks.md` 状态 + `WORKING_CONTEXT.md` | Codex |
+| 需求澄清决策 | `docs/current/<slug>/requirements.md` | Claude |
+| 验收结论 | `docs/current/acceptance.md` 或 `<slug>/acceptance.md` | Claude |
+| 归档完成 | `_dashboard.md` 移除行 + `context.md` 补录 | Claude |
 
-## Git 自动化规范
+## Agent 角色与职责
 
-### 分支命名
-- feature 分支：`feat/<slug>`
-- 任务分支：`feat/<slug>/T<n>`（n 从 1 开始）
+| Agent | 定位 | 核心职责 |
+|-------|------|---------|
+| Claude | 需求 + 验收 | Grill 需求、需求文档、escalation 接管、最终验收、归档授权 |
+| Codex | 规划 + 执行 | 任务拆分、开发实现、文档写回、验证、架构记忆维护 |
+| Gemini | 分析 + review | 只读审查、调研分析、输出 review 结论（严禁修改任何文件）|
 
-### 创建时机
-- `feat/<slug>`：Planner 完成 tasks.md、用户确认后创建
-- `feat/<slug>/T<n>`：Builder 开始执行该任务前创建
-
-### 合并规则
-- `feat/<slug>/T<n>` → `feat/<slug>`：Gemini review 通过后，由 Builder 执行
-- `feat/<slug>` → `main`：Claude 验收通过后，由 Claude 执行
-- 禁止跳过中间层直接合并到 `main`
-
-### 本地项目 vs 线上项目
-- **本地项目**：merge 到 `main` 后自动归档，流程结束
-- **线上项目**：merge 后由 OPS 准备部署，用户 HITL 确认，OPS 执行，用户确认线上正常后归档
-
-## 并行开发规则
-
-### 多工作流协调
-- 不同 slug 的文件天然隔离，可自由并行
-- 多个 slug 依赖同一共享核心文件时，必须在 `_dashboard.md` 标注，采用串行处理
-- 同时活跃 slug 建议不超过 5 个
-
-### agent 分配规则
-- 总 agent 数不超过 5 个
-- 一个 agent 可执行多个任务，但这些任务应属于同一 slug 或高度相关
-- 每个 agent 有清晰的 slug 归属，不跨 slug 操作
-- Gemini review 可处理多个 slug，但同时处理上限 3 个
-
-### 分支 / worktree 规则
-- 只有 `main` 已提交、基线稳定后，才创建 branch / worktree
-- 有依赖关系的任务必须串行，不得盲目并行
-- 多个 agent 不应同时修改同一核心共享文件
-
-## 默认执行策略
-- 如果用户已经明确指定任务，默认当前工作区就是有效工作区
-- 不要每次都先检查 branch / worktree / git status
-- 只有在以下情况，才进入严格预检：
-  - 用户要求并行开发
-  - 需要新开 branch / worktree
-  - 涉及共享核心文件
-  - 准备提交 / 合并 / review
-  - 发现冲突风险或目录状态异常
+在被明确指定时，各 agent 可协助其他合理任务，但必须遵守当前边界与流程。
 
 ## 升级规则（Escalation）
 
-满足以下任一条件，必须升级：
+满足任一条件必须升级，不尝试第三次：
 - 同一问题连续失败 2 次
-- 连续 2 次得到相似错误结果
 - 需要跨模块重新设计
 - 影响范围超出当前 slug
 
 升级路径：
 - 架构 / 复杂 bug / 重规划 → Claude
-- 大上下文 / 影响面分析 → Gemini
+- 大上下文分析 / 影响面评估 → Gemini
 - 分析完成后，修复动作默认回到 Codex
 
-## 交接要求（Handoff）
-
-升级时必须立即写入 `<slug>/review.md` escalation 区：
-- 当前 slug + 任务编号
-- 当前 agent
-- 问题描述
-- 已尝试方案
-- 当前错误信息
-- 涉及文件
-- 升级给谁
-- 希望完成什么
+升级时必须立即在 `review.md` 或 `WORKING_CONTEXT.md` 写入：当前问题、已尝试方案、错误信息、涉及文件、升级给谁、希望完成什么。
 
 ## 归档规则
 
-- 验收通过后自动触发，无需外部指令
+Standard 任务验收通过后自动触发：
 - `docs/current/<slug>/` → `docs/archive/<YYYY-MM-DD>-<slug>/`
-- `_dashboard.md` 中移除该 slug 行
-- `docs/context.md` 补录本轮新决策（保留，不归档）
-- 不覆盖历史轮次文档
+- 从 `docs/current/_dashboard.md` 移除该行
+- 补录 `docs/context.md`（本轮新决策）
+- 不覆盖历史归档
 
 ## 禁止事项
-- 不要在 `main` 还是空或未整理好的情况下直接开大量分支
-- 不要让 agent 无边界修改整个项目
-- 不要让有依赖关系的任务盲目并行
-- 不要跳过 review 直接合并
-- 不要在当前工作区有未处理改动时随意合并别的分支
-- 不要在未明确 slug 的情况下创建分支或修改文件
-- 不要让文档状态滞后于实际进展
+
+- 不声明任务模式就开始执行
+- 不读架构文档就新增组件或功能
+- 未明确 slug 就创建分支或修改文件
+- 跳过 review 直接合并（Standard 模式需要 review 时）
+- 让文档状态滞后于实际进展
+- 生产操作前没有备份和回滚路径
+- 顺手修改任务边界外的文件
+- Gemini 修改任何文件（严禁）
+- 连续失败 2 次仍继续尝试（必须升级）

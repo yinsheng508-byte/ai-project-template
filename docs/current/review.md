@@ -1,3 +1,0 @@
-> **结构已升级**：review 文档现在按 slug 独立存放于 `docs/current/<slug>/review.md`。
-> 模板位于 `docs/templates/review.md`。
-> 本文件仅作历史参考，新需求请勿在此处填写。
